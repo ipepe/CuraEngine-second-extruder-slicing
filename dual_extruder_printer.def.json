@@ -1,0 +1,32 @@
+{
+  "name": "Dual Extruder",
+  "version": 2,
+  "inherits": "fdmprinter",
+  "metadata":
+  {
+    "visible": true,
+    "author": "ipepe",
+    "manufacturer": "ipepe",
+    "category": "Other",
+    "file_formats": "text/x-gcode",
+    "platform_offset": [ 0, 0, 0],
+    "supports_usb_connection": false,
+    "machine_extruder_trains":
+    {
+      "0": "ipepe_2_extruder_0",
+      "1": "ipepe_2_extruder_1"
+    }
+  },
+
+  "overrides":
+  {
+    "machine_start_gcode": {"default_value": "G21 ;metric values\nG90 ;absolute positioning\nM82 ;set extruder to absolute mode\nG28 X0 Y0;move X/Y to min endstops\nG28 Z0 ;move Z to min endstops\nM420 S1 Z0.9 ;enable bed levelling\nG1 Z10 F250 ;move the platform down 10mm\nM107 ;fan off\nM42 P11 S255 ;turn on front fan\nM140 50\nM104 T0 195\nM104 T1 195\nG1 F1200 Y260\nM190 50\nM109 T0 195\nM109 T1 195\nM60 ;enable E-FADE Algorithm\nM62 A ;filament sensor off\nG92 E0 ;zero the extruded length\nT1\nG92 E0;zero the extruded length\nG1 F300 Z0.3\nG1 F1200 X20\nG1 F1200 X180 E21 ;extrude 21 mm of feed stock\nG1 F1200 E15  ;retracting 6 mm\nG1 F2000 E21\nG1 F2000 E15\nG1 F300 Z1.5\nG92 E0 ;zero the extruded length again\nT0\nG92 E0 ;zero the extruded length\nG1 F1200 Y258\nG1 F300 Z0.3\nG1 F1200 X40 E21 ;extrude 21 mm of feed stock\nG1 F1200 E15 ;retracting 6 mm\nG1 F2000 E21\nG1 F2000 E15\nG1 Z1.5\nG92 E0 ;zero the extruded length again\nM63 A ;filament sensor on\nM58 ;end of Start G-Code and signal retract management"},
+    "machine_end_gcode": {"default_value": "M59\nG92 E1\nG1 E-1 F300\nM104 T0 S0\nM104 T1 S0\nM140 S0\nG28 X0 Y0\nM84\nM106 S0\nM107"},
+    "material_print_temp_prepend": {"default_value": false},
+    "material_bed_temp_prepend": {"default_value": false},
+    "adhesion_type": {"default_value": "raft"},
+    "extruders_enabled_count": {"default_value": 2},
+    "machine_extruder_count": {"default_value": 2},
+    "support_enable": { "default_value": true }
+  }
+}
